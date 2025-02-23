@@ -1,4 +1,4 @@
-module uart_tb;
+module uart_echo_test;
 
 // Parameters
 parameter CLK_FREQ = 50_000_000;
