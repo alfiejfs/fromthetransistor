@@ -1,8 +1,15 @@
-module blink (input clk);
-  always @ (posedge clk) begin
-    $display("LED = 1");
+module blink (
+    input clk,
+    output reg led
+);
+
+reg [31:0] count;
+always @ (posedge clk) begin
+  if (count == 4) begin
+    count <= 0;
+    led <= ~led;
+  end else begin
+    count <= count + 1;
   end
-  always @ (negedge clk) begin
-    $display("LED = 0");
-  end
+end
 endmodule
