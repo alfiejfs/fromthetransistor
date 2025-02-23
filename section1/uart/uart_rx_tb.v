@@ -1,7 +1,8 @@
 module uart_rx_tb;
     parameter CLK_FREQ = 50_000_000; // 50 MHz clock
     parameter BAUD_RATE = 9600;      // 9600 baud rate
-    
+    parameter CLK_PERIOD = 20; // 20 ns clock period (50Mhz)
+
     reg clk = 0;
     reg reset = 0;
     reg rx = 1;
@@ -23,11 +24,11 @@ module uart_rx_tb;
     );
 
     // Generate Clock (50 MHz)
-    always #10 clk <= ~clk;  // 20ns period -> 50MHz
+    always #(CLK_PERIOD / 2) clk <= ~clk;  // 20ns period -> 50MHz
 
     // Calculate delays based on baud rate
     localparam integer BAUD_DIV = CLK_FREQ / (BAUD_RATE * 16);
-    localparam integer BIT_TIME = BAUD_DIV * 16 * 20; // in ns
+    localparam integer BIT_TIME = BAUD_DIV * 16 * CLK_PERIOD; // in ns
 
     initial begin
         // Initialize
