@@ -34,9 +34,9 @@ module uart_rx_tb;
         // Initialize
         reset = 1;
         rx = 1;
-        #200 reset = 0;
-        #200;
 
+        #100
+        reset = 0;
         // Start bit
         rx = 0;
         #(BIT_TIME);
